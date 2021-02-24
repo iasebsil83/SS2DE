@@ -185,7 +185,7 @@ let yellow :UInt32 = SS2DE_setPixelRGBA(255,255,  0, 255)
 
 
 
-//build image
+//build example image
 for idx in 0..<Int(customImage_height * customImage_width) {
 
 	if idx%3 == 0 {
@@ -199,7 +199,7 @@ for idx in 0..<Int(customImage_height * customImage_width) {
 		)
 	}else{
 
-		//data[idx] = green
+		//data[idx] = gray
 		customImage_data.advanced(
 			by: idx * MemoryLayout<UInt32>.stride
 		).storeBytes(
