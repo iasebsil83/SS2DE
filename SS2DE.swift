@@ -559,20 +559,27 @@ func SS2DE_text(_ text:String, _ size:Double, _ x:Int,_ y:Int){
 
 
 //images
-func SS2DE_imageRGBA(_ x:Int,_ y:Int, _ width:Int,_ height:Int, _ data:inout UnsafeRawPointer){
+func SS2DE_imageRGBA(_ x:Int,_ y:Int, _ width:UInt32,_ height:UInt32, _ data:UnsafeMutableRawPointer?){
 	glRasterPos2i(Int32(x), Int32(y))
-	glDrawPixels(Int32(width),Int32(height), UInt32(GL_RGBA), UInt32(GL_UNSIGNED_INT_8_8_8_8), data)
+
+	if data != nil {
+		glDrawPixels(
+			Int32(width), Int32(height),
+			UInt32(GL_RGBA),
+			UInt32(GL_UNSIGNED_INT_8_8_8_8),
+			data
+		)
+	}
 }
 
-func SS2DE_setPixelRGBA(_ r:Int, _ g:Int, _ b:Int, _ a:Int) -> Int32{
-	var result:Int32 = 0
+func SS2DE_setPixelRGBA(_ r:Int, _ g:Int, _ b:Int, _ a:Int) -> UInt32{
 
-	result += Int32( (r << 24) & 0xff000000 )
-	result += Int32( (g << 16) & 0x00ff0000 )
-	result += Int32( (b <<  8) & 0x0000ff00 )
-	result += Int32(  a        & 0x000000ff )
-
-	return result
+	return (
+		UInt32( (r << 24) & 0xff000000 ) |
+		UInt32( (g << 16) & 0x00ff0000 ) |
+		UInt32( (b <<  8) & 0x0000ff00 ) |
+		UInt32(  a        & 0x000000ff )
+	)
 }
 
 

@@ -8,16 +8,46 @@
     - Added something else.
 
     DD/MM/YYYY > [V.V.V] :
-        - Added something that wasn't before.
-        - Fixed a bug.
-        - Added something else.
-        - Added something else again.
+    - Added something that wasn't before.
+    - Fixed a bug.
+    - Added something else.
+    - Added something else again.
 
     BUGS : Active bugs in last version.
     NOTES : Notes.
 
     Contact : ...
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------- DECLARATIONS ----------------
+
+//example image
+let customImage_width  :UInt32 = 100
+let customImage_height :UInt32 = 200
+let customImage_data_len = MemoryLayout<UInt32>.stride * Int(customImage_height * customImage_width)
+let customImage_data = UnsafeMutableRawPointer.allocate(
+	byteCount: customImage_data_len,
+	alignment: MemoryLayout<UInt32>.alignment
+)
 
 
 
@@ -61,6 +91,13 @@ func SS2DE_event(_ event:UInt8){
 				200, 100,
 				100, 200,
 				SS2DE_FILL
+			)
+
+			//example image
+			SS2DE_imageRGBA(
+				300,100,
+				customImage_width, customImage_height,
+				customImage_data
 			)
 
 		case SS2DE_KEYBOARD:
@@ -137,10 +174,43 @@ func SS2DE_event(_ event:UInt8){
 // ---------------- EXECUTION ----------------
 
 //init SS2DE
-SS2DE_init("Bambod", 800,400)
+SS2DE_init("SS2DE [0.1.0]", 800,400)
 SS2DE_setTimer(100)
 
 
 
+//create colors
+let gray   :UInt32 = SS2DE_setPixelRGBA(128,128,128, 255)
+let yellow :UInt32 = SS2DE_setPixelRGBA(255,255,  0, 255)
+
+
+
+//build image
+for idx in 0..<Int(customImage_height * customImage_width) {
+
+	if idx%3 == 0 {
+
+		//data[idx] = yellow
+		customImage_data.advanced(
+			by: idx * MemoryLayout<UInt32>.stride
+		).storeBytes(
+			of: yellow,
+			as: UInt32.self
+		)
+	}else{
+
+		//data[idx] = green
+		customImage_data.advanced(
+			by: idx * MemoryLayout<UInt32>.stride
+		).storeBytes(
+			of: gray,
+			as: UInt32.self
+		)
+	}
+}
+
+
+
 //launch main loop
+print("Starting SS2DE")
 SS2DE_start()
