@@ -539,6 +539,41 @@ func SS2DE_quad(_ x1:Int,_ y1:Int, _ x2:Int,_ y2:Int, _ x3:Int,_ y3:Int, _ x4:In
 	}
 }
 
+func SS2DE_circle(_ x:Int, _ y:Int, _ radius:Float,step:Float = 0.1,_ filled:UInt8){
+	
+	let Pi2:Float = 2*3.1415926535898
+	
+	if filled == SS2DE_FILL {
+		var i :Float = 0
+		while i < Pi2 {			
+			SS2DE_triangle(
+				x,
+				y,
+				x + Int (radius*cos(i)),
+				y + Int (radius*sin(i)),
+				x + Int (radius*cos(i+step)),
+				y + Int (radius*sin(i+step)),
+				SS2DE_FILL
+			)
+			i += step
+		}
+	}
+
+	else{
+		var i :Float = 0
+		while i < Pi2 {
+			SS2DE_line(
+				x + Int (radius*cos(i)),
+				y + Int (radius*sin(i)),
+				x + Int (radius*cos(i+step)),
+				y + Int (radius*sin(i+step))
+			)
+			
+			i += step
+		}
+	}
+}
+
 
 
 //text

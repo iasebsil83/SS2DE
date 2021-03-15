@@ -93,13 +93,19 @@ func SS2DE_event(_ event:UInt8){
 				SS2DE_FILL
 			)
 
+
+
 			//example image
 			SS2DE_imageRGBA(
 				300,100,
 				customImage_width, customImage_height,
 				customImage_data
 			)
-
+			SS2DE_setColor(0,  255,  0)
+			SS2DE_circle(570,245,60,0)
+			SS2DE_circle(540,267,5,1)
+			SS2DE_circle(595,267,5,1)
+			SS2DE_rectangle(549,207,587,232,1)
 		case SS2DE_KEYBOARD:
 			switch(SS2DE_key){
 				case SS2DE_KEY_z:
