@@ -101,31 +101,38 @@ func SS2DE_event(_ event:UInt8){
 				customImage_width, customImage_height,
 				customImage_data
 			)
+
+			//smiley
 			SS2DE_setColor(0,  255,  0)
 			SS2DE_circle(570,245,60,0)
 			SS2DE_circle(540,267,5,1)
 			SS2DE_circle(595,267,5,1)
 			SS2DE_rectangle(549,207,587,232,1)
+
 		case SS2DE_KEYBOARD:
-			switch(SS2DE_key){
-				case SS2DE_KEY_z:
-					print("Pressed key \'z\'")
-				case SS2DE_KEY_Z:
-					print("Pressed key \'Z\'")
-				case SS2DE_KEY_q:
-					print("Pressed key \'q\'")
-				case SS2DE_KEY_Q:
-					print("Pressed key \'Q\'")
-				case SS2DE_KEY_s:
-					print("Pressed key \'s\'")
-				case SS2DE_KEY_S:
-					print("Pressed key \'S\'")
-				case SS2DE_KEY_d:
-					print("Pressed key \'d\'")
-				case SS2DE_KEY_D:
-					print("Pressed key \'D\'")
-				default:
-					break;
+			if SS2DE_keyState == SS2DE_KEY_RELEASED {
+				print("Key released.")
+			} else {
+				switch(SS2DE_key){
+					case SS2DE_KEY_z:
+						print("Pressed key \'z\'")
+					case SS2DE_KEY_Z:
+						print("Pressed key \'Z\'")
+					case SS2DE_KEY_q:
+						print("Pressed key \'q\'")
+					case SS2DE_KEY_Q:
+						print("Pressed key \'Q\'")
+					case SS2DE_KEY_s:
+						print("Pressed key \'s\'")
+					case SS2DE_KEY_S:
+						print("Pressed key \'S\'")
+					case SS2DE_KEY_d:
+						print("Pressed key \'d\'")
+					case SS2DE_KEY_D:
+						print("Pressed key \'D\'")
+					default:
+						break;
+				}
 			}
 
 		case SS2DE_MOUSECLICK:
