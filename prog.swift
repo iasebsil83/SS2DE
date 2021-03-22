@@ -131,11 +131,11 @@ func SS2DE_event(_ event:UInt8){
 					case SS2DE_KEY_D:
 						print("Pressed key \'D\'")
 					default:
-						break;
+						break
 				}
 			}
 
-		case SS2DE_MOUSECLICK:
+		case SS2DE_MOUSE_CLICK:
 			if(SS2DE_mouseState == SS2DE_MOUSE_RELEASED){
 				print("Released mouse.")
 			}else{
@@ -147,11 +147,24 @@ func SS2DE_event(_ event:UInt8){
 					case SS2DE_RIGHT_BUTTON:
 						print("Right mouse button pressed at (\(SS2DE_mouseX)\(SS2DE_mouseY)).")
 					default:
-						break;
+						break
 				}
 			}
 
-		case SS2DE_MOUSEMOVE:
+
+
+		//mouse scroll
+		case SS2DE_MOUSE_SCROLL:
+			switch(SS2DE_mouseScroll){
+				case SS2DE_SCROLL_UP:
+					print("Scrolling up at (\(SS2DE_mouseX),\(SS2DE_mouseY))")
+				case SS2DE_SCROLL_DOWN:
+					print("Scrolling down at (\(SS2DE_mouseX),\(SS2DE_mouseY))")
+				default:
+					break
+			}
+
+		case SS2DE_MOUSE_MOVE:
 			print("Moved mouse in (\(SS2DE_mouseX),\(SS2DE_mouseY)).")
 
 		case SS2DE_TIMER:
@@ -161,7 +174,7 @@ func SS2DE_event(_ event:UInt8){
 			print("Resized screen from (\(SS2DE_width),\(SS2DE_height)) to (\(SS2DE_newWidth),\(SS2DE_newHeight)).")
 
 		default:
-			break;
+			break
 	}
 }
 

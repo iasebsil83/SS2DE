@@ -22,7 +22,7 @@ import Foundation
 
 
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SS2DE [0.1.0] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SS2DE [0.1.1] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                         Simple Swift 2Dimensional Engine
 
     Developped using freeglut3 (or just GLUT), a graphical 2D/3D engine.
@@ -34,8 +34,11 @@ import Foundation
     name is S2DE. For more information about S2DE, please check out here :
                     https://github.com/iasebsil83/S2DE
 
-    [0.1.0] > 18/02/2021 :
+    18/02/2021 > [0.1.0] :
     - Created SS2DE.
+
+    22/03/2021 > [0.1.1] :
+    - Added SS2DE_MOUSE_SCROLL event.
 
     BUGS : .
     NOTES : .
@@ -263,12 +266,13 @@ let SS2DE_KEY_CEDILLA_C  :UInt16 = 0x0e7
 
 
 //event constants
-let SS2DE_KEYBOARD   :UInt8 = 0
-let SS2DE_MOUSECLICK :UInt8 = 1
-let SS2DE_MOUSEMOVE  :UInt8 = 2
-let SS2DE_DISPLAY    :UInt8 = 3
-let SS2DE_RESIZE     :UInt8 = 4
-let SS2DE_TIMER      :UInt8 = 5
+let SS2DE_KEYBOARD     :UInt8 = 0
+let SS2DE_MOUSE_CLICK  :UInt8 = 1
+let SS2DE_MOUSE_MOVE   :UInt8 = 2
+let SS2DE_MOUSE_SCROLL :UInt8 = 3
+let SS2DE_DISPLAY      :UInt8 = 4
+let SS2DE_RESIZE       :UInt8 = 5
+let SS2DE_TIMER        :UInt8 = 6
 
 
 
@@ -278,6 +282,8 @@ let SS2DE_MOUSE_RELEASED :UInt8 = 1
 let SS2DE_LEFT_BUTTON    :UInt8 = 0
 let SS2DE_MIDDLE_BUTTON  :UInt8 = 1
 let SS2DE_RIGHT_BUTTON   :UInt8 = 2
+let SS2DE_SCROLL_UP      :UInt8 = 3
+let SS2DE_SCROLL_DOWN    :UInt8 = 4
 
 
 
@@ -313,16 +319,17 @@ var SS2DE_timedExecution_delay :Int32 = -1
 
 
 //event variables
-var SS2DE_mouseState  :UInt8 = 0 //mouse
-var SS2DE_mouseButton :UInt8 = 0
+var SS2DE_mouseState  :UInt8  = 0 //mouse
+var SS2DE_mouseButton :UInt8  = 0
+var SS2DE_mouseScroll :UInt8  = 0
 var SS2DE_mouseX      :UInt32 = 0
 var SS2DE_mouseY      :UInt32 = 0
-var SS2DE_keyState :UInt8  = 0 //keyboard
-var SS2DE_key      :UInt16 = 0
-var SS2DE_newWidth  :UInt32 = 0 //resize
-var SS2DE_newHeight :UInt32 = 0
-var SS2DE_width  :UInt32 = 0
-var SS2DE_height :UInt32 = 0
+var SS2DE_keyState    :UInt8  = 0 //keyboard
+var SS2DE_key         :UInt16 = 0
+var SS2DE_newWidth    :UInt32 = 0 //resize
+var SS2DE_newHeight   :UInt32 = 0
+var SS2DE_width       :UInt32 = 0
+var SS2DE_height      :UInt32 = 0
 
 
 
@@ -406,14 +413,28 @@ func SS2DEL_mouseButton(_ button:Int32, _ state:Int32, _ x:Int32,_ y:Int32){
 	SS2DE_mouseX = UInt32(x)
 	SS2DE_mouseY = SS2DE_height - UInt32(y)
 	SS2DE_mouseState = UInt8(state)
-	SS2DE_mouseButton = UInt8(button)
-	SS2DE_event(SS2DE_MOUSECLICK)
+
+	//scroll
+	if button == 3 || button == 4 {
+		if state == SS2DE_MOUSE_PRESSED {
+			SS2DE_mouseScroll = UInt8(button)
+			SS2DE_event(SS2DE_MOUSE_SCROLL)
+		}
+	}else{
+		SS2DE_mouseButton = UInt8(button)
+		SS2DE_event(SS2DE_MOUSE_CLICK)
+	}
 }
 
 func SS2DEL_mouseMoved(_ x:Int32,_ y:Int32){
 	SS2DE_mouseX = UInt32(x)
 	SS2DE_mouseY = SS2DE_height - UInt32(y)
-	SS2DE_event(SS2DE_MOUSEMOVE)
+	usleep(UInt32(1))
+	if SS2DE_mouseScroll == 0 {
+		SS2DE_event(SS2DE_MOUSE_MOVE)
+	}else{
+		SS2DE_mouseScroll = UInt8(0)
+	}
 }
 
 
