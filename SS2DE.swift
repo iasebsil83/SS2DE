@@ -39,6 +39,7 @@ import Foundation
 
     22/03/2021 > [0.1.1] :
     - Added SS2DE_MOUSE_SCROLL event.
+    - Removed some useless importations.
 
     BUGS : .
     NOTES : .
