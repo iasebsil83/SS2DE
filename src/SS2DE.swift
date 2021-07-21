@@ -14,14 +14,6 @@ import Foundation
 
 
 
-
-
-
-
-
-
-
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SS2DE [0.1.1] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                         Simple Swift 2Dimensional Engine
 
@@ -66,14 +58,6 @@ import Foundation
 
     If not, see <https://www.gnu.org/licenses/>.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-
-
-
-
-
-
-
 
 
 
@@ -303,15 +287,7 @@ let SS2DE_FILL  :UInt8 = 1
 
 
 
-
-
-
-
-
-
-
-
-/// ---------------- INITIALIZATION ----------------
+// ---------------- INITIALISATION ----------------
 
 //window
 var SS2DE_window               :Int32 = -1
@@ -331,14 +307,6 @@ var SS2DE_newWidth    :UInt32 = 0 //resize
 var SS2DE_newHeight   :UInt32 = 0
 var SS2DE_width       :UInt32 = 0
 var SS2DE_height      :UInt32 = 0
-
-
-
-
-
-
-
-
 
 
 
@@ -654,14 +622,6 @@ func SS2DE_setTimer(_ ms:Int32){
 	//set new timedExecution delay
 	SS2DE_timedExecution_delay = ms
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -1,3 +1,4 @@
+#executable
 run: lib/include_GL.h prog.swift src/SS2DE.swift again
 
 	@#create temporary all-in-one swift source file
