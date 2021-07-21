@@ -30,14 +30,6 @@
 
 
 
-
-
-
-
-
-
-
-
 // ----------------- DECLARATIONS ----------------
 
 //example image
@@ -48,14 +40,6 @@ let customImage_data = UnsafeMutableRawPointer.allocate(
 	byteCount: customImage_data_len,
 	alignment: MemoryLayout<UInt32>.alignment
 )
-
-
-
-
-
-
-
-
 
 
 
@@ -177,14 +161,6 @@ func SS2DE_event(_ event:UInt8){
 			break
 	}
 }
-
-
-
-
-
-
-
-
 
 
 
