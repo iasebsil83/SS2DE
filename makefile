@@ -1,12 +1,14 @@
 #executable
-run: lib/include_GL.h src/prog.swift src/SS2DE.swift again
+run: lib/include_GL.h src/prog.swift lib/SS2DE.swift again
 
 	@#create temporary all-in-one swift source file
-	@cat src/SS2DE.swift >  run.swift
+	@cat lib/SS2DE.swift >  run.swift
 	@cat src/prog.swift  >> run.swift
 
 	@#compilation
-	@echo "compiling src/SS2DE.swift + src/prog.swift"
+	@echo "Compiling :"
+	@echo "    lib/SS2DE.swift"
+	@echo "    src/prog.swift"
 	swiftc run.swift -import-objc-header lib/include_GL.h -I/usr/include/GL -lGL -lm -lglut -lX11
 
 	@#remove temporary files
